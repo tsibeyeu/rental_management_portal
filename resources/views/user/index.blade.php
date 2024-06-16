@@ -41,9 +41,9 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Dashboard</h1>
+                        <h3 class="mt-4">All users</h3>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard room</li>
+                            <li class="breadcrumb-item active"></li>
                         </ol>
                        
                        
@@ -53,7 +53,7 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Tenant Rooms
+                                users
                             </div>
                             <div class="container-fluid px-4">
                             <div class="card-body">

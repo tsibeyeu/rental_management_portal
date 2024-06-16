@@ -19,14 +19,15 @@ class roomController extends Controller
     public function showCreateRoom(){
         $roomTypes=RoomType::all();
         return view('room.create',compact('roomTypes'));
-        
-
     }
 
     public function createRoom(Request $request){
         $user=Auth::user();
+        $existingRoom=Room::where('room_number',$request->room_number)->first();
+        if($existingRoom){
+            return redirect()->route('show.room.create')->with(['error'=> 'This room number already existed.']); 
+        }
         $room=new Room();
-        
         $room->user_id=$user->id;
         $room->room_type_id=$request->roomType_id;
         $room->floor=$request->floor;
@@ -34,13 +35,9 @@ class roomController extends Controller
         $room->square_area=$request->square_area;
         $room->price_per_area=$request->price_per_area;
         $room->total_price=$request->total_price;
-       
         $room->save();
         
         return redirect()->route('room')->with(['success'=> 'Room created  successfully.']);
-        
-        
-        
 
     }
 
@@ -56,9 +53,6 @@ class roomController extends Controller
         return view('room.tenantRoom',compact('roomTenants','tenant','id'));
 
     }
-
-    
-
 
        public function showAddRoom($id){
         $tenant=Tenant::find($id);
@@ -92,20 +86,13 @@ class roomController extends Controller
 
        }
 
-      
-
-
        public function editRoom(Request $request){
         $room_id=$request->input('room_id');
         $room=Room::find($room_id);
-       
-    
         return view('room.update',compact('room'));
         
                 
              }
-
-             
 
              public function updateRoom(Request $request){
                
@@ -121,23 +108,10 @@ class roomController extends Controller
                 $room->save();
                 
                 $roomTenants=$room->roomTenants;
-                // if (count($roomTenants) == 0){
-                //     $room->update([
-                //         "floor"=>$request->floor,
-                //         "room_number"=>$request->room_number,
-                //         "square_area"=>$request->square_area,
-                //         "price_per_area"=>$request->price_per_area,
-                //         "total_price"=>$request->total_price,
-                        
-                        
-                //     ]);
-
-                // }
+               
                
                 foreach($roomTenants as $roomTenant){
                     $statusFalseRoomTenants=$roomTenant->where('status',false)->get();
-                    // $statusTrueRoomTenants=$roomTenant->where('status',true)->get();
-                   
                    foreach($statusFalseRoomTenants as $statusFalseRoomTenant){
 
                        $statusFalseRoomTenant->update([
@@ -145,29 +119,12 @@ class roomController extends Controller
                            "room_number"=>$request->room_number,
                            "square_area"=>$request->square_area,
                            "price_per_area"=>$request->price_per_area,
-                        //    "total_price"=>$request->total_price,
-                           
                            
                        ]);
                      
                        
                    }
-                //    foreach($statusTrueRoomTenants as$statusTrueRoomTenant){
-
-                //     $statusTrueRoomTenant->room->update([
-                //            "floor"=>$request->floor,
-                //            "room_number"=>$request->room_number,
-                //            "square_area"=>$request->square_area,
-                //            "price_per_area"=>$request->price_per_area,
-                //            "total_price"=>$request->total_price,
-                           
-                           
-                //        ]);
-                //        $statusTrueRoomTenant->room->roomType->update([
-                //            "type"=>$request->type,
-                //        ]);
-                       
-                //    }
+                
 
                 }
                 return redirect()->route('room')->with(['success'=> 'Room updated  successfully.']);
@@ -191,7 +148,7 @@ class roomController extends Controller
                                 foreach ($paymentHistories as $paymentHistory) {
                                     $paymentHistory->delete();
                                  }
-                                     $licenseAgreement->delete();
+                                     $licenseAgreement->de7lete();
                                    }
 
                                     $roomTenant->delete();

@@ -4360,7 +4360,7 @@ textarea.form-control-lg {
   --bs-accordion-btn-padding-x: 1.25rem;
   --bs-accordion-btn-padding-y: 1rem;
   --bs-accordion-btn-color: #212529;
-  --bs-accordion-btn-bg: var(--bs-accordion-bg);
+  /* --bs-accordion-btn-bg: var(--bs-accordion-bg); */
   --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
   --bs-accordion-btn-icon-width: 1.25rem;
   --bs-accordion-btn-icon-transform: rotate(-180deg);
@@ -6940,6 +6940,68 @@ textarea.form-control-lg {
   min-height: 1em;
   background-color: currentcolor;
   opacity: 0.25;
+}
+.brown {
+  /* background-color: #828282; */
+  background-color: #000;
+  /* background-color:rgba(74, 37, 17, 0.9) */
+}
+.brown-margin {
+  margin-top: 5rem; 
+  color: #fdfdfe;
+  
+}
+.brown-hieght{
+  height: 20rem;
+  border-radius: 17px;
+  border: none;
+}
+.btn-submit:hover{
+  margin-left: 2.3rem;
+  /* background-color:#532915; */
+  background-color:#fff;
+  color: #000; 
+  /* color: #fff; */
+}
+.btn-submit{
+  margin-left: 2.3rem;
+  /* background-color:#532915; */
+  background-color:#fff;
+  color: #000; 
+  /* color: #fff; */
+}
+.text-font{
+  font-family: 'Open Sans', sans-serif; 
+}
+.id-style{
+  /* position: fixed; */
+                       left:0;
+                       right:0;
+                       padding-bottom:0.4rem;
+                       display:block; 
+                       margin-left:10px;
+                       margin-top:13px; 
+                       font-size:1.5rem;
+                       color:rgb(195, 195, 195);
+                       border-bottom-width:1px; 
+                       border-bottom-style:solid; 
+                       border-bottom-color:rgba(228, 228, 228,0.4);
+}
+/* .logo-text{
+  background-image: linear-gradient(to right,rgba(74, 37, 17, 1),#532915);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-family:monospace;
+} */
+.link-password a{
+  color: #f0f0f0;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size:18px;
+  text-decoration: none;
+}
+
+.marginTop{
+  margin-top: 10rem;
 }
 
 .align-baseline {

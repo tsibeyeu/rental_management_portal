@@ -76,16 +76,11 @@ class paymentHistoryController extends Controller
                 return redirect()->back()->with(['success'=> 'Payment Updated successfully.']);
 
              }
-
-             
              public function  destroy(Request $request ){
                 $paymentHistory_id= $request->input('paymentHistory_id');
                 $paymentHistory=PaymentHistory::find($paymentHistory_id);
-               
-                            $paymentHistory->delete();
+                    $paymentHistory->delete();
 
-                                     
-                
                 return redirect()->back()->with(['success'=> 'Payment record deleted successfully.']);
                 
             }

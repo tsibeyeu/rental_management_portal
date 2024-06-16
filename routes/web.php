@@ -9,6 +9,7 @@ use App\Http\Controllers\roomController;
 use App\Http\Controllers\roomTypeController;
 use App\Http\Controllers\paymentHistoryController;
 use App\Http\Controllers\licenseAgreementController;
+use App\Http\Controllers\ForgotPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,10 @@ use App\Http\Controllers\licenseAgreementController;
 */
 
 
-
+Route::get('/forgot-password',[ForgotPasswordController::class,'forgotPassword'])->name('forgot.password');
+Route::post('/forgot-password',[ForgotPasswordController::class,'forgotPasswordPost'])->name('forgot.password.post');
+Route::get('/reset-password/{token}',[ForgotPasswordController::class,'resetPassword'])->name('reset.password');
+Route::post('/reset-password/',[ForgotPasswordController::class,'resetPasswordPost'])->name('reset.password.post');
 
 Route::middleware(['auth','role:admin|user'])->name('admin.')->prefix('admin')->group(function(){
    
@@ -113,6 +117,7 @@ Route::group(['middleware' => 'auth','role:admin'], function () {
     Route::post('/create/payment/{id}', [paymentHistoryController::class,'createPayment'])->name("create.payment");
     Route::delete('/payment/delete', [paymentHistoryController::class,'destroy'])->name("payment.delete");
 });
+
 
 
 

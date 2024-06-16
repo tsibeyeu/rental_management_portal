@@ -6,11 +6,11 @@ use App\Models\Tenant;
 use App\Models\RoomTenant;
 use App\Models\LicenseAgreement;
 use App\Models\PaymentHistory;
-use App\Mail\signUpMail;
+use App\Mail\PaymentConfirmationMail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
-
+use Log;
 use Illuminate\Http\Request;
 
 class tenantController extends Controller
@@ -64,7 +64,13 @@ class tenantController extends Controller
                     if( $paymentHistory->save()){
                         $recipientEmail=$request->email;
                         $recipientname=$request->name;
-                        Mail::to($recipientEmail)->send(new signUpMail($recipientname,$paid));
+                        try{
+
+                            Mail::to($recipientEmail)->send(new PaymentConfirmationMail($recipientname,$paid));
+                        }catch(\Exception $e){
+                            log::error('Error saving PaymentHistory or sending email: ' . $e->getMessage());
+                              return redirect()->route('tenant.show')->with(['success'=> 'Tenant created successfully. Email notification will be sent when you are online']);
+                        }
                     }
                    
                     return redirect()->route('tenant.show')->with(['success'=> 'Tenant created successfully.']);

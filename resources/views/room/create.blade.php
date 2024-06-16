@@ -12,6 +12,9 @@
     </x-navbar.navbar-items>
             <div id="layoutSidenav_content">
                 <main>
+                    <x-alert.alert-status
+                    alert="error"
+                    />
 
         <form action="{{route('room.create')}}" method="POST">
         

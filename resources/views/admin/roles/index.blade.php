@@ -49,7 +49,7 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Detail Tenant
+                                Roles
                                 <a href="{{route('admin.roles.create')}}" class="btn btn-primary float-end">Add role</a>
 
                             </div>

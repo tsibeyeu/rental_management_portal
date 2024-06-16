@@ -13,6 +13,8 @@ use App\Models\RoomTenant;
 use App\Models\Room;
 use App\Models\RoomType;
 use App\Mail\signUpMail;
+use Carbon\Carbon;
+use Log;
 
 
 class userController extends Controller
@@ -67,8 +69,7 @@ class userController extends Controller
 
         // To fill Area chart
         $getFloor=$rooms->pluck('floor')->toArray();
-        // $getrooms=$rooms->where("status",false);
-        // return $getrooms;
+        
 
         
         return view('user.dashboard',compact('roomNumber','percentageUnRented','percentage','tenantNumber','getFloor','roomTypeNumber'));
@@ -96,7 +97,9 @@ class userController extends Controller
             $percentage=0;
             $percentageUnRented=0;
         }
-        return  view('admin.dashboard',compact('roomNumber','percentageUnRented','roomTypeNumber','tenantNumber','percentage','userNumber'));
+       
+        
+        return  view('admin.dashboard',compact('roomNumber','percentageUnRented','roomTypeNumber','tenantNumber','percentage','userNumber','percentage'));
     }
 
 
@@ -148,7 +151,13 @@ class userController extends Controller
                     $user->syncRoles($roles);
                     $recipientEmail=$request->email;
                     $recipientname=$request->first_name;
-                    Mail::to($recipientEmail)->send(new signUpMail($recipientname));
+                    try{
+
+                        Mail::to($recipientEmail)->send(new signUpMail($recipientname));
+                    }catch(\Exception $e){
+                        log::error('Error saving PaymentHistory or sending email: ' . $e->getMessage());
+                        return redirect()->route('admin.users.index')->with(['success'=> 'User created  successfully. Email notification will be sent when you are online']);
+                    }
                 }
                 return redirect()->route('admin.users.index')->with(['success'=> 'User created  successfully.']);     
         }

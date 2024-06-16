@@ -18,15 +18,10 @@ class RoleController extends Controller
         
     }
 
-
-
-
     function create()  {
       return view('admin.roles.create');
       
     }
-
-
 
     function store(Request $request )  {
       $validated=$request->validate(['name'=>'required']);
@@ -35,16 +30,11 @@ class RoleController extends Controller
       
     }
 
-
-
-
     function edit (Role $role)  {
       $permissions=Permission::all();
       return view('admin.roles.edit',compact('role','permissions'));
       
   }
-
-
 
   function update(Request $request,Role $role) {
   $validated=$request->validate(['name'=>'required']);
@@ -53,14 +43,11 @@ class RoleController extends Controller
       
   }
 
-
-
   function destroy(Role $role) {
     $role->delete();
   return redirect()->route('admin.roles.index');
   
   }
-  
   
   function showRolePermission(Role $role)  {
     // $permissions=Permission::all();
@@ -73,11 +60,6 @@ class RoleController extends Controller
     $permissions = $role->permissions->all();
     $rolepermissionsCollection = collect($permissions);
 
-
-    // $rolePermissions=DB::table('role_has_permissions')
-    //                     ->where('role_has_permissions.role_id',$role->id)
-    //                     ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
-    //                     ->all();
     return view('admin.roles.role-permission',compact('role','permissions','rolepermissionsCollection','permissionsNotInRoles'));
   }
 
@@ -85,14 +67,8 @@ class RoleController extends Controller
 
 
   function givePermission(Request $request,Role $role) {
-    // if ($role->hasPermissionTo($request->permissions)) {
-    //   return redirect()->back()->with(['success'=> 'Permission exist .']);
-    // }
     $role->givePermissionTo($request->permissionsNotInRoles);
-    // $role->syncPermissions($request->permissions);
       return redirect()->back()->with(['success'=> 'Permission assigned successfully.']);
-    
-    
   }
 
 
